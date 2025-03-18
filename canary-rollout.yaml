@@ -1,0 +1,28 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
+metadata:
+  name: my-app
+  namespace: flask
+spec:
+  replicas: 5
+  strategy:
+    canary:
+      steps:
+      - setWeight: 10  # İlk aşamada %10 trafik canary sürümüne yönlendirilir.
+      - pause: {duration: 30s}  # 30 saniye beklenir.
+      - setWeight: 50  # %50 trafik yeni sürüme yönlendirilir.
+      - pause: {duration: 1m}  # 1 dakika beklenir.
+      - setWeight: 100  # Son olarak tüm trafik yeni sürüme yönlendirilir.
+  selector:
+    matchLabels:
+      app: my-app
+  template:
+    metadata:
+      labels:
+        app: my-app
+    spec:
+      containers:
+      - name: my-app
+        image: ysufemrlty/my-basic-app:latest  # Güncellenen versiyon
+        ports:
+        - containerPort: 80
