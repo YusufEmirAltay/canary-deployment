@@ -9,7 +9,7 @@ spec:
   ports:
     - protocol: TCP
       port: 80
-      targetPort: 80
+      targetPort: 5000
       nodePort: 30097
   type: NodePort
 ---
@@ -24,6 +24,6 @@ spec:
   ports:
     - protocol: TCP
       port: 80
-      targetPort: 80
+      targetPort: 5000
       nodePort: 30098
   type: NodePort
