@@ -25,4 +25,4 @@ spec:
       - name: my-app
         image: ysufemrlty/my-basic-app:latest  # Güncellenen versiyon
         ports:
-        - containerPort: 80
+        - containerPort: 5000
